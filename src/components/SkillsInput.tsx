@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import type { Skill } from '../types';
+import { ResumeParser } from './ResumeParser';
+import { LinkedInParser } from './LinkedInParser';
 import './SkillsInput.css';
 
 interface SkillsInputProps {
@@ -170,6 +172,16 @@ export function SkillsInput({ skills, userSkills, onSkillsChange }: SkillsInputP
       <p className="input-hint">
         Start typing to see suggestions. Press Enter to add a skill.
       </p>
+      <ResumeParser
+        skills={skills}
+        onSkillsExtracted={onSkillsChange}
+        existingSkills={userSkills}
+      />
+      <LinkedInParser
+        skills={skills}
+        onSkillsExtracted={onSkillsChange}
+        existingSkills={userSkills}
+      />
     </div>
   );
 }

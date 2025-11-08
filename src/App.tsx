@@ -7,6 +7,7 @@ import { SkillsInput } from './components/SkillsInput';
 import { RoleSelection } from './components/RoleSelection';
 import { ResultsDashboard } from './components/ResultsDashboard';
 import { LearningPath } from './components/LearningPath';
+import { Chatbot } from './components/Chatbot';
 import './App.css';
 
 function App() {
@@ -139,6 +140,16 @@ function App() {
           <p>CareerPath Gap Analyzer - Built for BDPA Indianapolis Hackathon</p>
         </div>
       </footer>
+
+      {/* Chatbot */}
+      <Chatbot
+        userProfile={userProfile}
+        userSkills={userSkills}
+        selectedRole={selectedRole}
+        analysisResult={analysisResult}
+        skills={skills}
+        resources={resources}
+      />
     </div>
   );
 }

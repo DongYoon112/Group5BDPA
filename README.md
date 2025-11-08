@@ -5,9 +5,12 @@ A web application that helps students compare their current skills to entry-leve
 ## Features
 
 - **Skills Input**: Enter your skills with autocomplete suggestions and skill chips
+- **Resume Parser**: Upload your resume (PDF, DOCX, TXT) to automatically extract skills
+- **LinkedIn Parser**: Import skills from your LinkedIn profile via text paste or URL
 - **Role Selection**: Choose from 8 curated entry-level tech roles
 - **Gap Analysis**: Compare your skills to role requirements and see your readiness percentage
 - **Learning Path**: Get personalized learning resources for missing skills
+- **AI Chatbot**: Get personalized course recommendations and career guidance from CareerPath AI
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
 ## Tech Stack
@@ -23,6 +26,7 @@ A web application that helps students compare their current skills to entry-leve
 
 - Node.js (v18 or higher)
 - npm or yarn
+- OpenAI API key (for chatbot functionality)
 
 ### Installation
 
@@ -31,12 +35,21 @@ A web application that helps students compare their current skills to entry-leve
 npm install
 ```
 
-2. Start the development server:
+2. Set up environment variables:
+   - Create a `.env` file in the root directory
+   - Add your OpenAI API key:
+   ```
+   VITE_OPENAI_API_KEY=your_openai_api_key_here
+   ```
+   - You can use `env.example.txt` as a template
+   - Get your API key from: https://platform.openai.com/api-keys
+
+3. Start the development server:
 ```bash
 npm run dev
 ```
 
-3. Open your browser and navigate to `http://localhost:5173`
+4. Open your browser and navigate to `http://localhost:5173`
 
 ### Building for Production
 
@@ -88,23 +101,26 @@ src/
 ## Features Implemented
 
 - ✅ Skills input with autocomplete
+- ✅ Resume parser (PDF, DOCX, TXT)
+- ✅ LinkedIn parser (text paste and URL)
 - ✅ Skill normalization and alias mapping
 - ✅ Role selection with descriptions
 - ✅ Gap analysis engine
 - ✅ Readiness percentage calculation
 - ✅ Missing skills categorization
 - ✅ Learning resource recommendations
+- ✅ AI Chatbot with GPT-4o for personalized guidance
 - ✅ Responsive design
 - ✅ Accessibility features (keyboard navigation, ARIA labels)
 
 ## Future Enhancements
 
-- Resume parsing
 - Multiple role comparison
 - Export to PDF
 - Local storage for saving progress
 - Gamification with badges
 - User accounts and persistence
+- Enhanced LinkedIn integration
 
 ## License
 
