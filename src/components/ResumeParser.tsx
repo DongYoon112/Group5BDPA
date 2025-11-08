@@ -20,18 +20,35 @@ export function ResumeParser({ skills, onSkillsExtracted, existingSkills }: Resu
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
-    const validTypes = [
+    // Validate file type - check both extension and MIME type
+    const fileName = file.name.toLowerCase();
+    const fileType = file.type.toLowerCase();
+    
+    const validExtensions = ['.pdf', '.docx', '.txt', '.text'];
+    const validMimeTypes = [
       'application/pdf',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'text/plain'
+      'text/plain',
+      'text/'
     ];
-    const validExtensions = ['.pdf', '.docx', '.txt'];
-    const hasValidType = validTypes.includes(file.type);
-    const hasValidExtension = validExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
-
-    if (!hasValidType && !hasValidExtension) {
-      setError('Please upload a PDF, DOCX, or TXT file.');
+    
+    const hasValidExtension = validExtensions.some(ext => fileName.endsWith(ext));
+    const hasValidMimeType = validMimeTypes.some(type => 
+      fileType === type || (type.endsWith('/') && fileType.startsWith(type))
+    );
+    
+    // Check for unsupported formats
+    if (fileName.endsWith('.doc')) {
+      setError('Old Word format (.doc) is not supported. Please save your resume as .docx or export as PDF.');
+      setSuccess(false);
+      return;
+    }
+    
+    if (!hasValidExtension && !hasValidMimeType) {
+      setError(
+        `Unsupported file type. Please upload a PDF, DOCX, or TXT file. ` +
+        `Detected: ${file.name} (${file.type || 'unknown type'})`
+      );
       setSuccess(false);
       return;
     }
@@ -96,7 +113,7 @@ export function ResumeParser({ skills, onSkillsExtracted, existingSkills }: Resu
         <input
           ref={fileInputRef}
           type="file"
-          accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"
+          accept=".pdf,.docx,.txt,.text,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/*"
           onChange={handleFileSelect}
           className="resume-parser-input"
           id="resume-upload"
